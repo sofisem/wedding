@@ -58,6 +58,7 @@ body {
     padding-top: 10px;
     padding-bottom: 20px;
     overflow: visible;
+    text-align: center;   /* ← центрируем блок имён */
 }
 
 /* ===== Типографика ===== */
@@ -80,7 +81,7 @@ body {
     color: #8b1e13;
     display: block;
     margin: -8px 0 -8px 0;
-    text-align: center;
+    text-align: center;   /* ← амперсанд по центру */
 }
 
 .cursive-small {
@@ -126,12 +127,13 @@ body {
     display: inline-block;
     padding: 20px 10px;
     line-height: 1;
+    text-align: center;   /* ← имена по центру */
 }
 
 .ghost-name {
     position: absolute;
     top: 45%;
-    left: -50px;
+    left: -20px;          /* ← придвинули ближе к именам */
     font-family: 'Marck Script', cursive;
     font-size: 2.6rem;
     color: rgba(139, 30, 19, 0.13);
@@ -272,7 +274,7 @@ body {
     margin-bottom: 0;
 }
 
-/* Церемония — опущена ниже, чтобы линия не задевала */
+/* Церемония — опущена */
 .timeline-item:nth-child(2) {
     margin-top: 80px;
 }
@@ -886,7 +888,7 @@ footer {
     }
     .ghost-name {
         font-size: 2rem;
-        left: -30px;
+        left: -10px;   /* ← ближе к именам на мобильном */
     }
     .cursive-heading.big {
         font-size: 2rem;
@@ -911,11 +913,9 @@ footer {
     .timeline-item {
         max-width: 72%;
     }
-    /* Церемония на мобильном — опущена */
     .timeline-item:nth-child(2) {
         margin-top: 100px;
     }
-    /* Начало банкета на мобильном — ещё ниже */
     .timeline-item:nth-child(3) {
         margin-top: 200px;
     }
