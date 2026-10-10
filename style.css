@@ -443,6 +443,26 @@ body {
     box-shadow: 0 4px 12px rgba(74, 18, 32, 0.12);
 }
 
+/* ===== Блок «Второй день» ===== */
+.block--afterparty {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.block--afterparty .cursive-heading.big {
+    color: #5c1a2b;
+    margin-bottom: 25px;
+}
+
+.block--afterparty .paragraph {
+    max-width: 340px;
+    margin: 0 auto 18px;
+}
+
+.block--afterparty .paragraph:last-child {
+    margin-bottom: 0;
+}
+
 /* ===== Обратный отсчёт — бордовые квадратики ===== */
 .block--countdown {
     padding: 30px 20px;
@@ -797,7 +817,7 @@ footer {
 @media (max-width: 500px) {
     .invitation {
         padding: 30px 20px 0;
-        min-height: 2700px;
+        min-height: 2900px;
     }
     .script-name {
         font-size: 2.6rem;
@@ -855,6 +875,9 @@ footer {
     }
     .block--dresscode {
         padding: 25px 15px 10px;
+    }
+    .block--afterparty {
+        padding: 30px 15px;
     }
     .palette {
         gap: 10px;
