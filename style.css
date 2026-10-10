@@ -272,8 +272,14 @@ body {
     margin-bottom: 0;
 }
 
+/* Церемония — опущена ниже, чтобы линия не задевала */
+.timeline-item:nth-child(2) {
+    margin-top: 80px;
+}
+
+/* Начало банкета — ещё ниже */
 .timeline-item:nth-child(3) {
-    margin-top: 130px;
+    margin-top: 220px;
 }
 
 .timeline-item--left {
@@ -375,7 +381,6 @@ body {
     max-width: 340px;
 }
 
-/* Разделитель между абзацами — звёздочка */
 .block--highlight .paragraph + .paragraph {
     margin-top: 30px;
     padding-top: 30px;
@@ -870,7 +875,7 @@ footer {
 @media (max-width: 500px) {
     .invitation {
         padding: 30px 20px 0;
-        min-height: 3000px;
+        min-height: 3100px;
     }
     .script-name {
         font-size: 2.6rem;
@@ -906,8 +911,13 @@ footer {
     .timeline-item {
         max-width: 72%;
     }
+    /* Церемония на мобильном — опущена */
+    .timeline-item:nth-child(2) {
+        margin-top: 100px;
+    }
+    /* Начало банкета на мобильном — ещё ниже */
     .timeline-item:nth-child(3) {
-        margin-top: 220px;
+        margin-top: 300px;
     }
     .block--location {
         margin: 40px -20px 15px;
