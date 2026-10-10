@@ -1,0 +1,908 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #4a1220;
+    background-color: #f2efe6;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Лента приглашения по центру */
+.invitation {
+    max-width: 460px;
+    min-height: 3200px;
+    margin: 0 auto;
+    background: #fbf8f1;
+    position: relative;
+    padding: 40px 30px 0;
+    box-shadow: 0 20px 60px rgba(74, 18, 32, 0.08);
+    overflow: hidden;
+}
+
+/* Основная линия — растягивается по всей высоте .invitation */
+.main-swirl {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: visible;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.main-swirl.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.block {
+    position: relative;
+    z-index: 2;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.block--names {
+    z-index: 3;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    overflow: visible;
+}
+
+/* ===== Типографика ===== */
+.script-name {
+    font-family: 'Marck Script', cursive;
+    font-size: 3.4rem;
+    color: #3a3a3a;
+    line-height: 1;
+    font-weight: 400;
+    display: block;
+}
+
+.script-name::first-letter {
+    color: #8b1e13;
+}
+
+.amp {
+    font-family: 'Marck Script', cursive;
+    font-size: 1.8rem;
+    color: #8b1e13;
+    display: block;
+    margin: -8px 0 -8px 40px;
+    text-align: left;
+}
+
+.cursive-small {
+    font-family: 'Marck Script', cursive;
+    font-size: 1.4rem;
+    color: #8b1e13;
+    margin: 12px 0 20px;
+    line-height: 1.3;
+    position: relative;
+    z-index: 4;
+}
+
+.center-phrase {
+    text-align: center;
+    margin: 30px 0 10px;
+    font-size: 1.3rem;
+}
+
+.cursive-heading {
+    font-family: 'Marck Script', cursive;
+    font-size: 2rem;
+    color: #5c1a2b;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+.cursive-heading.big {
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+}
+
+.paragraph, .intro-text, .timeline-text, .location-text {
+    font-size: 0.95rem;
+    color: #4a1220;
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+/* ===== Блок имён ===== */
+.names-wrap {
+    position: relative;
+    z-index: 3;
+    display: inline-block;
+    padding: 20px 10px;
+    line-height: 1;
+}
+
+.ghost-name {
+    position: absolute;
+    top: 45%;
+    left: -50px;
+    font-family: 'Marck Script', cursive;
+    font-size: 2.6rem;
+    color: rgba(139, 30, 19, 0.13);
+    transform: rotate(-8deg);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+/* ===== Фото пары ===== */
+.photo-row {
+    position: relative;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 25px 0 10px;
+    padding: 0 5px;
+}
+
+.photo-frame {
+    width: 48%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(74, 18, 32, 0.18);
+    display: block;
+    background: #d9c9b8;
+    position: relative;
+}
+
+.photo-frame--1 {
+    transform: rotate(-2deg);
+    z-index: 1;
+}
+
+.photo-frame--2 {
+    transform: rotate(2deg);
+    z-index: 4;
+}
+
+.intro-text {
+    margin-top: 25px;
+    padding: 0 5px;
+    position: relative;
+    z-index: 3;
+}
+
+/* ===== Блок даты ===== */
+.block--date {
+    padding: 20px 0 40px;
+}
+
+.block--date .cursive-small {
+    margin-bottom: 25px;
+    font-size: 1.7rem;
+}
+
+.date-digits {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.digit {
+    border: 1px solid #c9b8a8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    color: #8a7a6a;
+    background: #fdfaf4;
+    transition: all 0.3s ease;
+}
+
+.digit--1 {
+    width: 38px;
+    height: 38px;
+    font-size: 0.85rem;
+}
+
+.digit--2 {
+    width: 46px;
+    height: 46px;
+    font-size: 0.95rem;
+}
+
+.heart-day {
+    position: relative;
+    width: 84px;
+    height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 6px;
+}
+
+.heart-day svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 8px 15px rgba(139, 30, 19, 0.35));
+}
+
+.heart-day__num {
+    position: relative;
+    z-index: 1;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: #fbf8f1;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding-top: 4px;
+    text-align: center;
+}
+
+/* ===== Тайминг (шахматный) ===== */
+.block--timeline {
+    padding: 25px 0;
+}
+
+.timeline-item {
+    margin-bottom: 50px;
+    padding: 0 10px;
+    position: relative;
+    max-width: 62%;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-item:nth-child(3) {
+    margin-top: 130px;
+}
+
+.timeline-item--left {
+    text-align: left;
+    margin-right: auto;
+    margin-left: 0;
+}
+
+.timeline-item--right {
+    text-align: right;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.timeline-item .time {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: #8b1e13;
+    font-style: italic;
+    margin-bottom: 5px;
+}
+
+/* ===== Локация — бордовый блок ===== */
+.block--location {
+    background: linear-gradient(160deg, #6b1f2e, #4a1220);
+    color: #fbf8f1;
+    padding: 40px 25px;
+    margin: 60px -30px 20px;
+    border-radius: 14px;
+    position: relative;
+    z-index: 2;
+}
+
+.block--location .cursive-heading.big {
+    color: #f2d9b0;
+    margin-bottom: 20px;
+}
+
+.block--location .location-text {
+    color: #f2d9b0;
+    margin: 15px 0 25px;
+    font-size: 1rem;
+}
+
+.block--location .button-outline {
+    border-color: #f2d9b0;
+    color: #f2d9b0;
+    background: transparent;
+}
+
+.block--location .button-outline:hover {
+    background: #f2d9b0;
+    color: #4a1220;
+}
+
+/* ===== Фото площадки в блоке «Ждём Вас» ===== */
+.location-photo-wrap {
+    margin: 20px auto 25px;
+    max-width: 300px;
+    padding: 8px;
+    background: #fbf8f1;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+}
+
+.location-photo-wrap:hover {
+    transform: rotate(0deg) scale(1.02);
+}
+
+.location-photo {
+    display: block;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* ===== Бордовый блок Пожелание + Группа ===== */
+.block--highlight {
+    background: linear-gradient(160deg, #6b1f2e, #4a1220);
+    color: #fbf8f1;
+    padding: 40px 25px;
+    margin: 30px -30px;
+    border-radius: 14px;
+    position: relative;
+    z-index: 2;
+}
+
+.block--highlight .cursive-heading.big {
+    color: #f2d9b0;
+    margin-bottom: 20px;
+}
+
+.block--highlight .paragraph {
+    color: #f2d9b0;
+    margin: 0 auto 20px;
+    max-width: 340px;
+}
+
+/* Разделитель между абзацами в бордовом блоке — звёздочка */
+.block--highlight .paragraph + .paragraph {
+    margin-top: 30px;
+    padding-top: 30px;
+    position: relative;
+}
+
+.block--highlight .paragraph + .paragraph::before {
+    content: '✦';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #f2d9b0;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+}
+
+.block--highlight .cursive-heading.big:not(:first-child) {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(242, 217, 176, 0.3);
+}
+
+.block--highlight .button-outline {
+    border-color: #f2d9b0;
+    color: #f2d9b0;
+    background: transparent;
+}
+
+.block--highlight .button-outline:hover {
+    background: #f2d9b0;
+    color: #4a1220;
+}
+
+/* ===== Дресс-код ===== */
+.block--dresscode {
+    padding: 30px 20px 10px;
+    text-align: center;
+}
+
+.block--dresscode .cursive-heading.big {
+    color: #5c1a2b;
+    margin-bottom: 20px;
+}
+
+.block--dresscode .paragraph {
+    max-width: 340px;
+    margin: 0 auto;
+}
+
+/* ===== Палитра цветов дресс-кода ===== */
+.palette {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.palette-dot {
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(74, 18, 32, 0.12);
+}
+
+/* ===== Обратный отсчёт — бордовые квадратики ===== */
+.block--countdown {
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.block--countdown .cursive-heading.big {
+    color: #5c1a2b;
+    margin-bottom: 25px;
+}
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    padding: 12px 10px;
+    background: linear-gradient(160deg, #6b1f2e, #4a1220);
+    border: 1px solid rgba(242, 217, 176, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(74, 18, 32, 0.25);
+}
+
+.countdown-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #f2d9b0;
+    line-height: 1;
+}
+
+.countdown-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: #f2d9b0;
+    opacity: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 6px;
+}
+
+/* ===== RSVP форма — в плашке ===== */
+.block--rsvp {
+    padding: 40px 0 50px;
+}
+
+.rsvp-subtitle {
+    font-family: 'Marck Script', cursive;
+    font-size: 1.2rem;
+    color: #8b1e13;
+    margin-bottom: 30px;
+}
+
+.rsvp-card {
+    background: #fdfaf4;
+    border: 1px solid #c9b8a8;
+    border-radius: 16px;
+    padding: 30px 25px;
+    box-shadow: 0 15px 35px rgba(74, 18, 32, 0.08);
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+.rsvp-form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: #5c1a2b;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #c9b8a8;
+    border-radius: 8px;
+    background: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    color: #4a1220;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #8b1e13;
+}
+
+.radio-group,
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.radio-option,
+.checkbox-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #4a1220;
+}
+
+.radio-option input,
+.checkbox-option input {
+    accent-color: #8b1e13;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.rsvp-submit {
+    width: 100%;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* ===== Кнопки (общие) ===== */
+.button-outline {
+    display: inline-block;
+    padding: 12px 34px;
+    border: 1.5px solid #5c1a2b;
+    color: #5c1a2b;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.button-outline:hover {
+    background: #5c1a2b;
+    color: #fbf8f1;
+}
+
+/* ===== Подвал ===== */
+footer {
+    max-width: 460px;
+    margin: 0 auto;
+    padding: 25px;
+    text-align: center;
+    background: #5c1a2b;
+    color: #f2d9b0;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+
+/* ===== Конверт ===== */
+.envelope-screen {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #5c1a2b 0%, #2e0a14 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.envelope-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.envelope {
+    position: relative;
+    width: 320px;
+    height: 220px;
+    cursor: pointer;
+    perspective: 1000px;
+}
+
+.envelope-back {
+    position: absolute;
+    inset: 0;
+    background: #6b1f2e;
+    border-radius: 6px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 175, 55, 0.3);
+}
+
+.letter {
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    top: 15px;
+    height: 190px;
+    background: #fbf8f1;
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Marck Script', cursive;
+    font-size: 1.3rem;
+    color: #5c1a2b;
+    transition: transform 1s ease 0.4s;
+    z-index: 2;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.letter p {
+    margin: 6px 0;
+}
+
+.envelope-front {
+    position: absolute;
+    inset: 0;
+    background: #5c1a2b;
+    border-radius: 6px;
+    clip-path: polygon(0 30%, 50% 65%, 100% 30%, 100% 100%, 0 100%);
+    z-index: 3;
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: #4a1220;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transition: transform 0.8s ease;
+    z-index: 4;
+    border-radius: 6px 6px 0 0;
+}
+
+.wax-seal {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+}
+
+.wax-seal img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+}
+
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+.envelope.open .wax-seal {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+}
+
+.envelope.open .letter {
+    transform: translateY(-130px);
+}
+
+.envelope-hint {
+    margin-top: 40px;
+    color: #d4af37;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* ===== Кнопка звука ===== */
+.sound-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(92, 26, 43, 0.85);
+    border: 1.5px solid rgba(242, 217, 176, 0.5);
+    color: #f2d9b0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10000;
+    opacity: 1;
+    visibility: visible;
+    transition: transform 0.3s ease, background 0.3s ease;
+    padding: 0;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.sound-toggle:hover {
+    background: rgba(107, 31, 46, 1);
+    transform: scale(1.08);
+}
+
+.sound-toggle svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+    display: block;
+}
+
+.sound-toggle .sound-off {
+    display: none;
+}
+
+.sound-toggle.muted .sound-on {
+    display: none;
+}
+
+.sound-toggle.muted .sound-off {
+    display: block;
+}
+
+/* ===== Мобильная адаптация ===== */
+@media (max-width: 500px) {
+    .invitation {
+        padding: 30px 20px 0;
+        min-height: 2700px;
+    }
+    .script-name {
+        font-size: 2.6rem;
+    }
+    .amp {
+        font-size: 1.5rem;
+        margin-left: 30px;
+    }
+    .ghost-name {
+        font-size: 2rem;
+        left: -30px;
+    }
+    .cursive-heading.big {
+        font-size: 2rem;
+    }
+    .digit--1 {
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
+    }
+    .digit--2 {
+        width: 40px;
+        height: 40px;
+        font-size: 0.85rem;
+    }
+    .heart-day {
+        width: 72px;
+        height: 72px;
+    }
+    .heart-day__num {
+        font-size: 0.95rem;
+    }
+    .timeline-item {
+        max-width: 72%;
+    }
+    .timeline-item:nth-child(3) {
+        margin-top: 150px;
+    }
+    .block--location {
+        margin: 40px -20px 15px;
+        padding: 35px 20px;
+        border-radius: 12px;
+    }
+    .location-photo-wrap {
+        max-width: 240px;
+        margin: 15px auto 20px;
+    }
+    .location-photo {
+        height: 160px;
+    }
+    .block--highlight {
+        margin: 25px -20px;
+        padding: 30px 18px;
+        border-radius: 12px;
+    }
+    .block--dresscode {
+        padding: 25px 15px 10px;
+    }
+    .palette {
+        gap: 10px;
+        margin-top: 20px;
+    }
+    .palette-dot {
+        width: 36px;
+        height: 36px;
+    }
+    .countdown {
+        gap: 8px;
+    }
+    .countdown-item {
+        min-width: 56px;
+        padding: 10px 8px;
+        border-radius: 10px;
+    }
+    .countdown-num {
+        font-size: 1.5rem;
+    }
+    .countdown-label {
+        font-size: 0.62rem;
+        letter-spacing: 1px;
+    }
+    .rsvp-card {
+        padding: 25px 18px;
+    }
+    .envelope {
+        width: 260px;
+        height: 180px;
+    }
+    .letter {
+        height: 150px;
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+    .wax-seal {
+        width: 65px;
+        height: 65px;
+    }
+    .sound-toggle {
+        width: 42px;
+        height: 42px;
+        top: 14px;
+        right: 14px;
+    }
+    .sound-toggle svg {
+        width: 18px;
+        height: 18px;
+    }
+}
