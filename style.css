@@ -917,7 +917,7 @@ footer {
     }
     /* Начало банкета на мобильном — ещё ниже */
     .timeline-item:nth-child(3) {
-        margin-top: 220px;
+        margin-top: 200px;
     }
     .block--location {
         margin: 40px -20px 15px;
